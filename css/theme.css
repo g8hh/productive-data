@@ -1,0 +1,209 @@
+:root {
+	--background: #000000;
+	--color: #00ff00;
+}
+
+body {
+	background: var(--background);
+	color: var(--color);
+	font-size: 24px;
+	font-family: 'Inconsolata', monospace;
+	margin: 0;
+	transition-duration: 0.2s
+}
+div {
+	margin: 0
+}
+a { 
+	color: var(--color)
+}
+button {
+	background: var(--background);
+	border: 2px solid var(--color);
+	color: var(--color);
+	font-size: 24px;
+	font-family: 'Inconsolata', monospace;
+	transition-duration: 0.2s
+}
+button:hover {
+	background: var(--color);
+	color: var(--background)
+}
+.box {
+	position: fixed;
+	border: 2px solid var(--color);
+}
+.topleft {
+	left: 4px;
+	top: 4px;
+	width: calc(40% - 12px);
+	height: calc(40% - 12px)
+}
+.bottomleft {
+	left: 4px;
+	bottom: 4px;
+	width: calc(40% - 12px);
+	height: calc(60% - 12px)
+}
+.right {
+	right: 4px;
+	top: 4px;
+	width: calc(60% - 12px);
+	height: calc(100% - 12px)
+}
+.boxInside {
+	position: absolute;
+	left: 6px;
+	top: 6px;
+	width: calc(100% - 12px);
+	height: calc(100% - 12px);
+	text-align: center;
+	overflow-x: auto;
+	overflow-y: auto
+}
+.currencies {
+	position: absolute;
+	left: 50%;
+	bottom: 50%;
+	transform: translate(-50%,50%);
+	font-size: 24px;
+	text-align: center;
+	overflow-x: auto
+}
+.currency {
+	position: relative;
+	width: 480px;
+	height: 60px
+}
+.amount {
+	position: absolute;
+	left: 4px;
+	top: 4px
+}
+.produce {
+	position: absolute;
+	right: 4px;
+	top: 4px;
+	width: 128px;
+	height: 32px;
+}
+.production {
+	position: absolute;
+	left: 4px;
+	bottom: 4px
+}
+.tabButtons {
+	overflow-y: auto
+}
+.tabButtons button {
+	width: calc(100% - 24px);
+	margin-bottom: 4px
+}
+.tab {
+	display: none;
+}
+#tab_options td {
+	padding: 2px
+}
+.option {
+	width: 180px;
+	height: 90px
+}
+.table_tab table {
+	width: 720px
+}
+.table_tab tr {
+	height: 24px
+}
+.table_tab td:nth-child(1) {
+	min-width: 360px;
+	width: 360px;
+	max-width: 360px;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left
+}
+.table_tab td:nth-child(2) {
+	min-width: 360px;
+	width: 360px;
+	max-width: 360px;
+	font-size: 24px;
+	text-align: right
+}
+#exported_save, #exported_save_safe {
+	display: none
+}
+#exported_save_text, #exported_save_safe_text {
+	width: 240px;
+	height: 60px
+}
+.upgrade {
+	position: relative;
+	width: 360px;
+	height: 200px;
+	display: inline-block;
+	border: 2px solid var(--color);
+	margin: 2px
+}
+.upgrade_effect {
+	position: absolute;
+	width: 100%;
+	top: 4px
+}
+.upgrade_button {
+	position: absolute;
+	transform: translate(-50%, 0);
+	bottom: 4px;
+	width: 350px
+}
+.tab_locked {
+	position: absolute;
+	left: 50%;
+	bottom: 50%;
+	transform: translate(-50%,50%);
+	text-align: center;
+}
+.unlock_button {
+	width: 240px
+}
+.theme_option_button {
+	width: 180px
+}
+.select_file_button {
+	height: 90px;
+	width: 210px;
+}
+.computer {
+	position: relative;
+	width: 360px;
+	height: 210px;
+	display: inline-block;
+	border: 2px solid var(--color);
+	margin: 2px
+}
+#transfer {
+	height: 90px;
+	width: 360px
+}
+.inject_button_secondary {
+	position: absolute;
+	transform: translate(-50%, 0);
+	bottom: 40px;
+	width: 350px
+}
+.automation_upgrade_button {
+	width: 300px;
+	height: 90px
+}
+#feat_achieved {
+	position: absolute;
+	left: 4px;
+	bottom: 4px;
+	background: var(--background);
+	opacity: 0;
+	border: 2px solid var(--color);
+	width: 360px;
+	height: 60px;
+	z-index: 1;
+	transition-duration: 0.2s
+}
