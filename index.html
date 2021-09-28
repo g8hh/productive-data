@@ -1,0 +1,266 @@
+<html>
+	<head>
+		<title>Productive Data v0.1.5.3</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/theme.css">
+<!--		<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">-->
+		<script type="text/javascript" src="js/core.js"></script>
+		<script type="text/javascript" src="js/load.js"></script>
+		<script type="text/javascript" src="js/tabs.js"></script>
+	</head>
+	<body onload="init_game()">
+<script src="chs.js?07071443"></script>
+<script src="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/zh/core.js"></script>
+		<div class="box topleft">
+			<div class="currencies">
+				<div class="currency">
+					<div class="amount" id="bits"><b>Bits</b>: 0 / 32</div>
+					<div class="production" id="bits_production">1.0/s</div>
+					<button class="produce" id="produce_bits" onclick="produce('bits')">Produce</button>
+				</div>
+				<div class="currency">
+					<div class="amount" id="bytes"><b>Bytes</b>: 0</div>
+					<div class="production" id="bytes_production">0.5/s</div>
+					<button class="produce" id="produce_bytes" onclick="produce('bytes')">Produce</button>
+				</div>
+				<div id="words_div" class="currency" style="display: none">
+					<div class="amount" id="words"></div>
+					<div class="production" id="words_multiplier"></div>
+				</div>
+			</div>
+		</div>
+		<div class="box bottomleft">
+			<div class="boxInside tabButtons">
+				<button onclick="switch_tab('upgrades')">Upgrades</button>
+				<button onclick="switch_tab('files')">Files</button>
+				<button id="tab_button_computers" onclick="switch_tab('computers')" style="display:none">Computers</button>
+				<button id="tab_button_transfer" onclick="switch_tab('transfer')" style="display:none">Transfer</button>
+				<button onclick="switch_tab('statistics')">Statistics</button>
+				<button id="tab_button_feats" onclick="switch_tab('feats')" style="display:none">Feats</button>
+				<button onclick="switch_tab('options')">Options</button>
+				<button onclick="switch_tab('about')">About</button>
+			</div>
+		</div>
+		<div class="box right">
+			<div class="boxInside">
+				<div class="tab" id="tab_stuck" style="display: block">
+					If you are seeing this sentence for few seconds, please reload or export your save!<br>
+					<button onclick="document.location.reload(true)">Reload</button>
+					<button onclick="export_save_safe()">Export</button>
+					<div id='exported_save_safe'>Here is your exported save. You can share it for reporting bugs.<br><textarea id='exported_save_safe_text' readonly></textarea></div>
+				</div>
+				<div class="tab" id="tab_upgrades">
+					<button onclick="max_upgrades()">Max upgrades</button><br>
+					<div class="upgrade">
+						<div class="upgrade_effect" id="upgrade_1"></div>
+						<button class="upgrade_button" id="upgrade_1_button" onclick="buy_upgrade(1)"></button>
+					</div><div class="upgrade">
+						<div class="upgrade_effect" id="upgrade_2"></div>
+						<button class="upgrade_button" id="upgrade_2_button" onclick="buy_upgrade(2)"></button>
+					</div><div class="upgrade">
+						<div class="upgrade_effect" id="upgrade_3"></div>
+						<button class="upgrade_button" id="upgrade_3_button" onclick="buy_upgrade(3)"></button>
+					</div>
+				</div>
+				<div class="tab" id="tab_files">
+					<div class="tab_locked" id="tab_locked_files">
+						<b style="font-size: 48px">Unlock files?</b><br>
+						<button class="unlock_button" onclick="unlock_files()">Cost: 64 bytes</button>
+						<div id="perm_unlock_files">
+							<b>Or are you want to perm-unlock files?</b><br>
+							<button class="unlock_button" onclick="perm_unlock_files()">Cost: 16 words</button>
+						</div>
+					</div>
+					<div id="tab_unlocked_files">
+						<div id="total_file_boost"></div>
+						<div id="percentage_to_be_injected"></div>
+						<button onclick="select_percentage(10)">10%</button>
+						<button onclick="select_percentage(25)">25%</button>
+						<button onclick="select_percentage(100/3)">33.3%</button>
+						<button onclick="select_percentage(50)">50%</button>
+						<button onclick="select_percentage(75)">75%</button>
+						<button onclick="select_percentage(100)">100%</button><br>
+						<div id="inject_equally_button"><button onclick="inject_equally()">Inject all words evenly</button></div>
+					</div>
+				</div>
+				<div class="tab" id="tab_computers">
+					<div class="tab_locked" id="tab_locked_computers">
+						<b style="font-size: 48px">Unlock computers?</b><br>
+						<button class="unlock_button" onclick="unlock_computers()">512x multiplier</button>
+						<div id="total_file_boost_computers"></div>
+						<div id="perm_unlock_computers">
+							<b>Or are you want to perm-unlock computers?</b><br>
+							<button class="unlock_button" onclick="perm_unlock_computers()">Cost: 256 words</button>
+						</div>
+					</div>
+					<div id="tab_unlocked_computers">
+						<b>Select the file you want to dissolve.</b>
+						<div id="file_selected"></div>
+						<button class="select_file_button" id="select_file_1" onclick="select_file(1)"></button>
+						<button class="select_file_button" id="select_file_2" onclick="select_file(2)"></button>
+						<button class="select_file_button" id="select_file_3" onclick="select_file(3)"></button>
+						<button class="select_file_button" id="select_file_4" onclick="select_file(4)"></button>
+						<button class="select_file_button" id="select_file_5" onclick="select_file(5)"></button>
+						<button class="select_file_button" id="select_file_6" onclick="select_file(6)"></button>
+						<button class="select_file_button" id="select_file_7" onclick="select_file(7)"></button>
+						<button class="select_file_button" id="select_file_8" onclick="select_file(8)"></button>
+						<div id="total_computer_boost"></div>
+						<div id="computers"></div>
+						<div id="unlock_servers">
+							<b style="font-size: 48px">Unlock servers?</b><br>
+							<button class="unlock_button" onclick="unlock_servers()">Cost: 512 words</button>
+						</div>
+					</div>
+				</div>
+				<div class="tab" id="tab_transfer">
+					Transferring resets all of your bits, bytes, upgrades, files, and computers, but you will gain words based on your bytes. You need to get 160 total computer levels to transfer.
+					<div id="total_computer_levels"></div>
+					<button id="transfer" onclick="transfer()"></button>
+					<div id="next_word_gain"></div>
+					<div id="automation">
+						<button class="automation_upgrade_button" id="buy_autobuyer" onclick="buy_autobuyer()"></button><br>
+					</div>
+				</div>
+				<div class="tab table_tab" id="tab_statistics">
+					<table align=center>
+						<tr>
+							<td>Playtime:</td>
+							<td id="playtime">0.0 seconds</td>
+						</tr>
+						<tr>
+							<td>Total bits gained:</td>
+							<td id="total_bits">0</td>
+						</tr>
+						<tr>
+							<td>Total bytes gained:</td>
+							<td id="total_bytes">0</td>
+						</tr>
+						<tr>
+							<td>Total upgrades bought:</td>
+							<td id="total_upgrades">0</td>
+						</tr>
+						<tr id="bits_injected_row">
+							<td>Total bits injected:</td>
+							<td id="bits_injected">0</td>
+						</tr>
+						<tr id="files_dissolved_row">
+							<td>Total files dissolved:</td>
+							<td id="files_dissolved">0</td>
+						</tr>
+						<tr id="total_exp_row">
+							<td>Total EXP gained:</td>
+							<td id="total_exp">0</td>
+						</tr>
+						<tr id="total_levelups_row">
+							<td>Total level ups:</td>
+							<td id="total_levelups">0</td>
+						</tr>
+						<tr id="total_computer_levelups_row">
+							<td>Total computer level ups:</td>
+							<td id="total_computer_levelups">0</td>
+						</tr>
+						<tr id="times_transfer_row">
+							<td>Times transferred:</td>
+							<td id="times_transfer">0</td>
+						</tr>
+						<tr id="time_this_transfer_row">
+							<td>Time since last transfer:</td>
+							<td id="time_this_transfer">0.0 seconds</td>
+						</tr>
+						<tr id="fastest_transfer_row">
+							<td>Fastest transfer:</td>
+							<td id="fastest_transfer">0.0 seconds</td>
+						</tr>
+						<tr id="total_words_row">
+							<td>Total words gained:</td>
+							<td id="total_words">0</td>
+						</tr>
+						<tr id="words_injected_row">
+							<td>Total words injected:</td>
+							<td id="words_injected">0</td>
+						</tr>
+						<tr id="total_sxp_row">
+							<td>Total SXP gained:</td>
+							<td id="total_sxp">0</td>
+						</tr>
+						<tr id="servers_made_row">
+							<td>Total servers made:</td>
+							<td id="servers_made">0</td>
+						</tr>
+						<tr id="total_server_levelups_row">
+							<td>Total server level ups:</td>
+							<td id="total_server_levelups">0</td>
+						</tr>
+					</table>
+				</div>
+				<div class="tab table_tab" id="tab_feats">
+					<table id="feats" align=center>
+					</table>
+				</div>
+				<div class="tab" id="tab_options">
+					<b style="font-size: 48px">Saving</b><br>
+					<table align=center><tr>
+						<td><button class="option" onclick="save_game()">Save</button></td>
+						<td><button class="option" onclick="export_save()">Export</button></td>
+						<td><button class="option" onclick="import_save()">Import</button></td>
+						<td><button class="option" onclick="hard_reset()">HARD RESET</button></td>
+					</tr><tr>
+						<td></td>
+						<td><button class="option" id="auto_save" onclick="toggle_auto_save()"></button></td>
+						<td><button class="option" id="offline_progress" onclick="toggle_offline_progress()"></button></td>
+						<td></td>
+					</tr></table>
+					<div id='exported_save'>Here is your exported save. You can share it for reporting bugs.<br><textarea id='exported_save_text' readonly></textarea></div>
+					<b style="font-size: 48px">Display</b><br>
+					<table align=center><tr>
+						<td><button class="option" id="tick_rate" onclick="change_tick_rate()"></button></td>
+						<td><button class="option" id="theme" onclick="open_theme_menu()"></button></td>
+						<td><button class="option" id="notation" onclick="change_notation()"></button></td>
+					</tr></table>
+					<div id='theme_menu'>
+						<div id="theme_color"></div>
+						<button class="theme_option_button" onclick="change_theme_color(1)">Red</button>
+						<button class="theme_option_button" onclick="change_theme_color(2)">Orange</button>
+						<button class="theme_option_button" onclick="change_theme_color(3)">Yellow</button>
+						<button class="theme_option_button" onclick="change_theme_color(4)">Lime</button>
+						<button class="theme_option_button" onclick="change_theme_color(5)">Green</button>
+						<button class="theme_option_button" onclick="change_theme_color(6)">Jade</button>
+						<button class="theme_option_button" onclick="change_theme_color(7)">Cyan</button>
+						<button class="theme_option_button" onclick="change_theme_color(8)">Water</button>
+						<button class="theme_option_button" onclick="change_theme_color(9)">Blue</button>
+						<button class="theme_option_button" onclick="change_theme_color(10)">Purple</button>
+						<button class="theme_option_button" onclick="change_theme_color(11)">Pink</button>
+						<button class="theme_option_button" onclick="change_theme_color(12)">Red Beryl</button><br><br>
+						<button id="theme_light" class="theme_option_button" onclick="toggle_theme_light()"></button>
+						<button id="theme_dark" class="theme_option_button" onclick="toggle_theme_dark()"></button>
+					</div>
+					<b style="font-size: 48px">Quality of Life</b><br>
+					<table align=center><tr>
+						<td><button class="option" id="lock_bits_production" onclick="lock_bits_production()"></button></td>
+					</tr></table>
+				</div>
+				<div class="tab" id="tab_about">
+					<b style='font-size: 48px'>Productive Data</b><br>Created by Aarex Tiaokhiao<br>v0.1.5.3<br><br>
+					<a href="https://aarextiaokhiao.github.io/">Home</a><br>
+					<a href="changelog.html">Changelog</a><br>
+					<s>Discord</s> (<a href="http://discord.gg/KsjcgskgTj" target="_newtab">NG+3 Server</a>)<br>
+					<a href="http://aarextiaokhiao.github.io">Aarex's Home</a>
+					<br><br>
+					<b style='font-size:48px'>WARNING</b><br>
+					This game has been now archived after few years of development. I am not deleting this for historic purposes. You are feel free to still play this game, but however you will probably not enjoy it.<br>
+				</div>
+			</div>
+		</div>
+		<div id="feat_achieved">
+		</div>
+<!--客服 开始-->
+<script src="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/static/css/kf.css" type="text/css" media="screen" charset="utf-8">
+<script src="https://cdn.jsdelivr.net/gh/g8hh/g8hh.github.io/static/js/kf.js"></script>
+<!-- 客服 结束 -->
+<!--站长统计-->
+    <div style="display: none">
+       <script type="text/javascript" src="https://v1.cnzz.com/z_stat.php?id=1280006740&web_id=1280006740"></script>
+    </div>
+	</body>
+</html>
