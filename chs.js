@@ -329,6 +329,8 @@ var cnExcludePostfix = [
 //换行加空格：\n(.+)
 var cnRegReplace = new Map([
     [/^(\d+) day, (\d+) minutes, and (\d+) seconds$/, '$1天 $2分钟 $3秒'],
+    [/^(\d+) day, (\d+) hours, (\d+) minutes, and (\d+) seconds$/, '$1天 $2小时 $3分钟 $4秒'],
+    [/^(\d+) days, (\d+) hours, (\d+) minutes, and (\d+) seconds$/, '$1天 $2小时 $3分钟 $4秒'],
     [/^(\d+) day, (\d+) hour, (\d+) minutes, and (\d+) seconds$/, '$1天 $2小时 $3分钟 $4秒'],
     [/^You have (.+) points$/, '你有 $1 点数'],
     [/^Next at (.+) points$/, '下一个在 $1 点数'],
